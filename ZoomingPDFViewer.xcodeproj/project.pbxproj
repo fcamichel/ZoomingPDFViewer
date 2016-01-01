@@ -12,6 +12,11 @@
 		6707682B1C371772007CBC22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 670768291C371772007CBC22 /* Main.storyboard */; };
 		6707682D1C371772007CBC22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6707682C1C371772007CBC22 /* Assets.xcassets */; };
 		670768301C371772007CBC22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6707682E1C371772007CBC22 /* LaunchScreen.storyboard */; };
+		670768391C371823007CBC22 /* input_pdf.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 670768381C371823007CBC22 /* input_pdf.pdf */; };
+		6707683B1C371A49007CBC22 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6707683A1C371A49007CBC22 /* ModelController.swift */; };
+		6707683D1C371AA2007CBC22 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6707683C1C371AA2007CBC22 /* DataViewController.swift */; };
+		6707683F1C371AE0007CBC22 /* TiledPDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6707683E1C371AE0007CBC22 /* TiledPDFView.swift */; };
+		670768411C371B14007CBC22 /* PDFScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670768401C371B14007CBC22 /* PDFScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,11 @@
 		6707682C1C371772007CBC22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6707682F1C371772007CBC22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		670768311C371772007CBC22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		670768381C371823007CBC22 /* input_pdf.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = input_pdf.pdf; sourceTree = "<group>"; };
+		6707683A1C371A49007CBC22 /* ModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
+		6707683C1C371AA2007CBC22 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		6707683E1C371AE0007CBC22 /* TiledPDFView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TiledPDFView.swift; sourceTree = "<group>"; };
+		670768401C371B14007CBC22 /* PDFScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +48,7 @@
 		670768191C371772007CBC22 = {
 			isa = PBXGroup;
 			children = (
+				670768371C3717FB007CBC22 /* Supporting Files */,
 				670768241C371772007CBC22 /* ZoomingPDFViewer */,
 				670768231C371772007CBC22 /* Products */,
 			);
@@ -60,8 +71,20 @@
 				6707682C1C371772007CBC22 /* Assets.xcassets */,
 				6707682E1C371772007CBC22 /* LaunchScreen.storyboard */,
 				670768311C371772007CBC22 /* Info.plist */,
+				6707683A1C371A49007CBC22 /* ModelController.swift */,
+				6707683C1C371AA2007CBC22 /* DataViewController.swift */,
+				6707683E1C371AE0007CBC22 /* TiledPDFView.swift */,
+				670768401C371B14007CBC22 /* PDFScrollView.swift */,
 			);
 			path = ZoomingPDFViewer;
+			sourceTree = "<group>";
+		};
+		670768371C3717FB007CBC22 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				670768381C371823007CBC22 /* input_pdf.pdf */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +148,7 @@
 			files = (
 				670768301C371772007CBC22 /* LaunchScreen.storyboard in Resources */,
 				6707682D1C371772007CBC22 /* Assets.xcassets in Resources */,
+				670768391C371823007CBC22 /* input_pdf.pdf in Resources */,
 				6707682B1C371772007CBC22 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,8 +160,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6707683D1C371AA2007CBC22 /* DataViewController.swift in Sources */,
+				6707683B1C371A49007CBC22 /* ModelController.swift in Sources */,
+				670768411C371B14007CBC22 /* PDFScrollView.swift in Sources */,
 				670768281C371772007CBC22 /* ViewController.swift in Sources */,
 				670768261C371772007CBC22 /* AppDelegate.swift in Sources */,
+				6707683F1C371AE0007CBC22 /* TiledPDFView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +315,7 @@
 				670768361C371772007CBC22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
