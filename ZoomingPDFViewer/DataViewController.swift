@@ -21,7 +21,7 @@ class DataViewController: UIViewController {
         
         self.page = self.pdf.page(at: self.pageNumber)
         //        let pageExists = (self.page == nil)
-        print("self.page == nil?" + ((self.page == nil) ? "true" : "false"))
+        print("self.page == nil? " + ((self.page == nil) ? "true" : "false"))
         self.scrollView.changePDFPage(self.page)
         
     }
