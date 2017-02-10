@@ -25,7 +25,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         super.init()
         // Create the data model.
         let pdfURL = Bundle.main.url(forResource: "input_pdf.pdf", withExtension: nil)
-        self.pdf = CGPDFDocument(pdfURL)
+        self.pdf = CGPDFDocument(pdfURL as! CFURL)
         self.numberOfPages = self.pdf.numberOfPages as Int
         if (self.numberOfPages % 2 == 1) {
             self.numberOfPages += 1

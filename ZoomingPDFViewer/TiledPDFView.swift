@@ -33,7 +33,7 @@ class TiledPDFView: UIView {
     }
     
     // Draw the CGPDFPageRef into the layer at the correct scale.
-    override func drawLayer(_ layer: CALayer, inContext ctx: CGContext) {
+    override func draw(_ layer: CALayer, in ctx: CGContext) {
         //print(pretty_function_string() + "myScale: \(myScale)")
         
         // Fill the background with white.
