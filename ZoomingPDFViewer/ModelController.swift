@@ -18,53 +18,53 @@ There is no need to actually create view controllers for each page in advance --
 */
 
 class ModelController: NSObject, UIPageViewControllerDataSource {
-    var pdf: CGPDFDocumentRef!
+    var pdf: CGPDFDocument!
     var numberOfPages: Int = 0
     
     override init() {
         super.init()
         // Create the data model.
-        let pdfURL = NSBundle.mainBundle().URLForResource("input_pdf.pdf", withExtension: nil)
-        self.pdf = CGPDFDocumentCreateWithURL(pdfURL)
-        self.numberOfPages = CGPDFDocumentGetNumberOfPages(self.pdf) as Int
+        let pdfURL = Bundle.main.url(forResource: "input_pdf.pdf", withExtension: nil)
+        self.pdf = CGPDFDocument(pdfURL)
+        self.numberOfPages = self.pdf.numberOfPages as Int
         if (self.numberOfPages % 2 == 1) {
-            self.numberOfPages++
+            self.numberOfPages += 1
         }
     }
     
-    func viewControllerAtIndex(index: Int, storyboard: UIStoryboard) -> DataViewController {
+    func viewControllerAtIndex(_ index: Int, storyboard: UIStoryboard) -> DataViewController {
         // Create a new view controller and pass suitable data.
-        let dataViewController = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
+        let dataViewController = storyboard.instantiateViewController(withIdentifier: "DataViewController") as! DataViewController
         dataViewController.pageNumber = index + 1
         dataViewController.pdf = self.pdf
         return dataViewController
     }
     
-    func indexOfViewController(viewController: DataViewController) -> Int {
+    func indexOfViewController(_ viewController: DataViewController) -> Int {
         // Return the index of the given data view controller.
         // For simplicity, this implementation uses a static array of model objects and the view controller stores the model object; you can therefore use the model object to identify the index.
         return viewController.pageNumber - 1
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         var index = self.indexOfViewController(viewController as! DataViewController)
         
         if (index == 0) || (index == NSNotFound) {
             return nil
         }
         
-        index--
+        index -= 1
         return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         var index = self.indexOfViewController(viewController as! DataViewController)
         
         if (index == NSNotFound) {
             return nil
         }
         
-        index++
+        index += 1
         
         if (index == self.numberOfPages) {
             return nil

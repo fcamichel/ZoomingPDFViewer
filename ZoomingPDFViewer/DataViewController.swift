@@ -11,28 +11,28 @@ import UIKit
 class DataViewController: UIViewController {
     @IBOutlet weak var scrollView: PDFScrollView!
     
-    var pdf: CGPDFDocumentRef!
-    var page: CGPDFPageRef!
+    var pdf: CGPDFDocument!
+    var page: CGPDFPage!
     var pageNumber: Int = 0
     var myScale: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.page = CGPDFDocumentGetPage(self.pdf, self.pageNumber)
+        self.page = self.pdf.page(at: self.pageNumber)
         //        let pageExists = (self.page == nil)
         print("self.page == nil?" + ((self.page == nil) ? "true" : "false"))
         self.scrollView.changePDFPage(self.page)
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         // Disable zooming if our pages are currently shown in landscape
-        if (UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.Portrait || UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.PortraitUpsideDown) {
-            self.scrollView.userInteractionEnabled = true
+        if (UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.portrait || UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.portraitUpsideDown) {
+            self.scrollView.isUserInteractionEnabled = true
         }
         else {
-            self.scrollView.userInteractionEnabled = false
+            self.scrollView.isUserInteractionEnabled = false
         }
         
         //print("scrollView.zoomScale = \(self.scrollView.zoomScale) " + pretty_function_string())
@@ -43,19 +43,19 @@ class DataViewController: UIViewController {
         self.restoreScale()
     }
     
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
         //pretty_function()
-        if (fromInterfaceOrientation == UIInterfaceOrientation.Portrait) || (fromInterfaceOrientation == UIInterfaceOrientation.PortraitUpsideDown) {
-            self.scrollView.userInteractionEnabled = false
+        if (fromInterfaceOrientation == UIInterfaceOrientation.portrait) || (fromInterfaceOrientation == UIInterfaceOrientation.portraitUpsideDown) {
+            self.scrollView.isUserInteractionEnabled = false
         }
         else {
-            self.scrollView.userInteractionEnabled = true
+            self.scrollView.isUserInteractionEnabled = true
         }
     }
     func restoreScale() {
         // Called on orientation change.
         // We need to zoom out and basically reset the scrollview to look right in two-page spline view.
-        let pageRect = CGPDFPageGetBoxRect(self.page, CGPDFBox.MediaBox)
+        let pageRect = self.page.getBoxRect(CGPDFBox.mediaBox)
         let yScale = self.view.frame.size.height / pageRect.size.height
         let xScale = self.view.frame.size.width / pageRect.size.width
         
