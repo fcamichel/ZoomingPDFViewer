@@ -18,24 +18,24 @@ class PDFScrollView: UIScrollView, UIScrollViewDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.initialize()
+        initialize()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initialize()
+        initialize()
     }
     
     func initialize() {
         //pretty_function()
-        self.decelerationRate = UIScrollViewDecelerationRateFast
-        self.delegate = self;
-        self.layer.borderColor = UIColor.lightGray.cgColor
-        self.layer.borderWidth = 5;
-        self.minimumZoomScale = 0.25;
-        self.maximumZoomScale = 5;
-        self.backgroundImageView = UIView(frame: self.frame)
-        self.oldTiledPDFView = TiledPDFView(frame:self.pageRect, scale: PDFScale)
+        decelerationRate = UIScrollViewDecelerationRateFast
+        delegate = self
+        layer.borderColor = UIColor.lightGray.cgColor
+        layer.borderWidth = 5
+        minimumZoomScale = 0.25
+        maximumZoomScale = 5
+        backgroundImageView = UIView(frame: frame)
+        oldTiledPDFView = TiledPDFView(frame:pageRect, scale: PDFScale)
     }
     
     func changePDFPage(_ PDFPage: CGPDFPage?) {
@@ -43,17 +43,16 @@ class PDFScrollView: UIScrollView, UIScrollViewDelegate {
         
         // PDFPage is nil if we're requested to draw a padded blank page by the parent UIPageViewController
         if (PDFPage == nil) {
-            self.pageRect = self.bounds
+            pageRect = bounds
         }
         else {
-            self.pageRect = self.PDFPage.getBoxRect(CGPDFBox.mediaBox )
+            pageRect = self.PDFPage.getBoxRect(CGPDFBox.mediaBox)
             
-            self.PDFScale = self.frame.size.width / self.pageRect.size.width;
-            self.pageRect = CGRect(x: self.pageRect.origin.x, y: self.pageRect.origin.y, width: self.pageRect.size.width * self.PDFScale, height: self.pageRect.size.height * self.PDFScale)
-            
+            PDFScale = frame.size.width / pageRect.size.width
+            pageRect = CGRect(x: pageRect.origin.x, y: pageRect.origin.y, width: pageRect.size.width * PDFScale, height: pageRect.size.height * PDFScale)
         }
         // Create the TiledPDFView based on the size of the PDF page and scale it to fit the view.
-        self.replaceTiledPDFViewWithFrame(self.pageRect)
+        replaceTiledPDFViewWithFrame(pageRect)
     }
     
     // Use layoutSubviews to center the PDF page in the view.
@@ -62,8 +61,8 @@ class PDFScrollView: UIScrollView, UIScrollViewDelegate {
         
         // Center the image as it becomes smaller than the size of the screen.
         
-        let boundsSize = self.bounds.size
-        var frameToCenter:CGRect = self.tiledPDFView.frame
+        let boundsSize = bounds.size
+        var frameToCenter:CGRect = tiledPDFView.frame
         
         // Center horizontally.
         
@@ -83,15 +82,15 @@ class PDFScrollView: UIScrollView, UIScrollViewDelegate {
             frameToCenter.origin.y = 0
         }
         
-        self.tiledPDFView.frame = frameToCenter
-        self.backgroundImageView.frame = frameToCenter
+        tiledPDFView.frame = frameToCenter
+        backgroundImageView.frame = frameToCenter
         
         /*
         To handle the interaction between CATiledLayer and high resolution screens, set the tiling view's contentScaleFactor to 1.0.
         If this step were omitted, the content scale factor would be 2.0 on high resolution screens, which would cause the CATiledLayer to ask for tiles of the wrong scale.
         */
         
-        self.tiledPDFView.contentScaleFactor = 1.0;
+        tiledPDFView.contentScaleFactor = 1.0
         
     }
     
@@ -100,16 +99,16 @@ class PDFScrollView: UIScrollView, UIScrollViewDelegate {
     Return the current TiledPDFView.
     */
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return self.tiledPDFView
+        return tiledPDFView
     }
     
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-        //print(pretty_function_string() + " scrollview.zoomScale = \(self.zoomScale)")
+        //print(pretty_function_string() + " scrollview.zoomScale = \(zoomScale)")
         // Remove back tiled view.
-        self.oldTiledPDFView.removeFromSuperview()
+        oldTiledPDFView.removeFromSuperview()
         
         // Set the current TiledPDFView to be the old view.
-        self.oldTiledPDFView = self.tiledPDFView
+        oldTiledPDFView = tiledPDFView
     }
     
     /*
@@ -121,9 +120,9 @@ class PDFScrollView: UIScrollView, UIScrollViewDelegate {
         
         // Set the new scale factor for the TiledPDFView.
         PDFScale *= scale
-        //print(pretty_function_string() + "AFTER " + " PDFScale = \(PDFScale)" + "newFrame = \(self.oldTiledPDFView.frame)")
+        //print(pretty_function_string() + "AFTER " + " PDFScale = \(PDFScale)" + "newFrame = \(oldTiledPDFView.frame)")
         // Create a new tiled PDF View at the new scale
-        self.replaceTiledPDFViewWithFrame(self.oldTiledPDFView.frame)
+        replaceTiledPDFViewWithFrame(oldTiledPDFView.frame)
     }
     
     func replaceTiledPDFViewWithFrame(_ frame: CGRect) {
@@ -131,8 +130,8 @@ class PDFScrollView: UIScrollView, UIScrollViewDelegate {
         let t = TiledPDFView(frame: frame, scale: PDFScale)
         t.pdfPage = PDFPage
         // Add the new TiledPDFView to the PDFScrollView.
-        self.addSubview(t)
-        self.tiledPDFView = t
+        addSubview(t)
+        tiledPDFView = t
     }
 }
 

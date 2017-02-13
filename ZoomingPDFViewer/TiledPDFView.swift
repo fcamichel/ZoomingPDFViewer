@@ -23,9 +23,9 @@ class TiledPDFView: UIView {
         tiledLayer.levelsOfDetailBias = 3
         tiledLayer.tileSize = CGSize(width: 512.0, height: 512.0)
         
-        self.myScale = scale
-        self.layer.borderColor = UIColor.lightGray.cgColor
-        self.layer.borderWidth = 5
+        myScale = scale
+        layer.borderColor = UIColor.lightGray.cgColor
+        layer.borderWidth = 5
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,7 +38,7 @@ class TiledPDFView: UIView {
         
         // Fill the background with white.
         ctx.setFillColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        ctx.fill(self.bounds)
+        ctx.fill(bounds)
         
         // Print a blank page and return if our page is nil.
         if (pdfPage == nil) {
@@ -47,12 +47,12 @@ class TiledPDFView: UIView {
         
         ctx.saveGState()
         // Flip the context so that the PDF page is rendered right side up.
-        ctx.translateBy(x: 0.0, y: self.bounds.size.height)
+        ctx.translateBy(x: 0.0, y: bounds.size.height)
         ctx.scaleBy(x: 1.0, y: -1.0)
         
         // Scale the context so that the PDF page is rendered at the correct size for the zoom level.
-        ctx.scaleBy(x: self.myScale, y: self.myScale)
-        ctx.drawPDFPage(self.pdfPage!)
+        ctx.scaleBy(x: myScale, y: myScale)
+        ctx.drawPDFPage(pdfPage!)
         ctx.restoreGState()
     }
 }
