@@ -32,6 +32,10 @@ class TiledPDFView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func draw(_ rect: CGRect) {
+        // needs to be called even empty in order to call drawLayer func while zooming
+    }
+    
     // Draw the CGPDFPageRef into the layer at the correct scale.
     override func draw(_ layer: CALayer, in ctx: CGContext) {
         //print(pretty_function_string() + "myScale: \(myScale)")
